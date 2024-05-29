@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   resource :inn_management, only: [:show]
 
+  resource :promotions, only: [:show, :new, :create]
+
   namespace :inn_dashboard do
     resource :inns, only: [:edit, :update] do
       resource :inn_rooms, only: [:new, :create]
