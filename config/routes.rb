@@ -10,6 +10,13 @@ Rails.application.routes.draw do
   root "home#index"
   resources :inns, only: [:show]
 
+  namespace :api do 
+    namespace :v1 do 
+      get "inns/:cnpj", to: "api/v1/inns#details", as: "inn_details"
+      #resources :inns, only: [:show]
+    end
+  end
+
   resource :inn_management, only: [:show]
 
   namespace :inn_dashboard do
