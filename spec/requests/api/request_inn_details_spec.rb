@@ -32,5 +32,12 @@ describe 'request inn details' do
       expect(json_response['full_address']).to eq "Rua X, 100 - Centro - Manaus/AM"
       expect(json_response['number_of_rooms']).to eq 2
     end
+
+    it 'E ocorre uma falha interna do servidor' do 
+      allow(Inn).to receive(:find_by).and_raise(ActiveRecord::ActiveRecordError)
+      get api_v1_inn_details_path(9999999)
+      
+      expect(response.status).to eq 500
+    end
   end
 end
