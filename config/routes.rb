@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   namespace :api do 
     namespace :v1 do 
-      get "inns/:cnpj", to: "api/v1/inns#details", as: "inn_details"
+      get "inns/:cnpj", to: "inns#details", as: "inn_details"
       #resources :inns, only: [:show]
     end
   end
