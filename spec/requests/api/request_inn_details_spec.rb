@@ -36,8 +36,11 @@ describe 'request inn details' do
     it 'E ocorre uma falha interna do servidor' do 
       allow(Inn).to receive(:find_by).and_raise(ActiveRecord::ActiveRecordError)
       get api_v1_inn_details_path(9999999)
-      
+
       expect(response.status).to eq 500
+      expect(response.content_type).to include "json"
+      json_response = JSON.parse(response.body)
+      expect(json_response['errors']).to eq "Ocorreu uma falha interna no servidor"
     end
   end
 end

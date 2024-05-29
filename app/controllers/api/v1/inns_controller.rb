@@ -1,4 +1,6 @@
 class Api::V1::InnsController < ActionController::API
+  rescue_from ActiveRecord::ActiveRecordError, with: :return_500
+
   def details 
     cnpj = params[:cnpj]
     inn = Inn.find_by(registration_number: cnpj)
@@ -9,4 +11,11 @@ class Api::V1::InnsController < ActionController::API
       render status: 406, json: {"errors": "Não há uma pousada com o CNPJ #{cnpj}"}
     end
   end
+
+  private 
+
+  def return_500
+    render status: 500, json: {"errors": "Ocorreu uma falha interna no servidor"}
+  end
+
 end
